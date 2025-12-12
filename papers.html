@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boyu Ye - 文章</title>
+        <style>
+        /* 基础样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html, body {
+            height: 100%;
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            background: #eef4fd;
+            color: #333;
+        }
+        
+        /* 使用Flexbox布局确保页脚在底部 */
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        /* 主要内容区域，可以自动扩展以填充空间 */
+        main {
+            flex: 1 0 auto;
+            padding: 20px;
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+        }
+        
+        /* 页头样式 */
+        header {
+            background: linear-gradient(135deg, #2c3e50, #03080d);
+            color: #ffffff;
+            padding: 30px 0;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        
+        /* 导航样式 */
+        nav {
+            background: linear-gradient(90deg, rgb(235, 134, 62), rgb(212, 83, 8));
+            color: #ffffff;
+            text-align: center;
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        nav ul {
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin: 0 25px;
+            position: relative;
+        }
+        
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            padding: 8px 15px;
+            border-radius: 20px;
+        }
+        
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        /* 当前页面高亮 */
+        nav a.current {
+            background-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        /* 内容区域样式 */
+        .content {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+            transition: transform 0.3s ease;
+        }
+        
+        .content:hover {
+            transform: translateY(-5px);
+        }
+        
+        /* 动态消息样式 */
+        .timeline {
+            margin-top: 10px; /*与标题的间距*/
+        }
+        
+        .timeline-item {    /*将时间放在标题左侧*/
+            padding: 15px 0;
+            border-bottom: 2px solid #3d3d3dac;
+            display: flex;
+            position: relative;
+            /*align-items: center;*/
+        }
+        
+        .timeline-item:last-child {
+            border-bottom: none;
+        }
+        
+        .timeline-date {
+            font-size: 18px; /* 放大字体大小，可以按需调整值，例如：18px, 1.5rem 等 */
+            min-width: 100px;
+            font-weight: bold;
+            color: #fa7f04;
+        }
+        
+        .timeline-content {
+            flex: 1;
+            padding-right: 150px
+        }
+        
+        /* 下载链接容器 - 放在右边中间 */
+        .download-link {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            align-items: center;
+        }
+        
+        .download-link a {
+            background: #4A90E2;
+            color: white !important;
+            padding: 6px 14px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.85em;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(74, 144, 226, 0.3);
+            white-space: nowrap;
+        }
+        
+        .download-link a:hover {
+            background: #357ABD;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(74, 144, 226, 0.5);
+            text-decoration: none;
+        }
+
+        /*tag样式*/
+        .tagline {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .tag {
+            background: #fa7f04;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.9em;
+        }
+        
+        /* 页脚样式 - 保持在底部 */
+        footer {
+            background: linear-gradient(135deg, #20272c, #03080d);
+            color: #ffffff;
+            text-align: center;
+            padding: 25px 0;
+            margin-top: auto; /* 关键属性：确保页脚保持在底部 */
+            width: 100%;
+        }
+        
+        .social-links {
+            margin-top: 10px;
+        }
+        
+        .social-links a {
+            color: white;
+            margin: 0 10px;
+            font-size: 1.2em;
+            transition: color 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            color: #6A5ACD;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            nav ul li {
+                margin: 5px 0;
+            }
+            
+            main {
+                padding: 15px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .profile {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+        
+        /* 标题样式 */
+        h1, h2 {
+            position: center;
+        }
+        
+        h1:after, h2:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            background: linear-gradient(90deg, #4A90E2, #6A5ACD);
+            border-radius: 2px;
+        }
+        
+        h2:after {
+            width: 60px;
+        }
+        
+        /* 页面内容样式 */
+        .page-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .page-content.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        a {
+            color: #bf2d2d;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        a:hover {
+            color: #6A5ACD;
+            text-decoration: underline;
+        }
+        
+        /* 导航栏链接hover时不改变颜色 */
+        nav a:hover {
+            color: #ffffff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>博宇的小空间</h1>
+        <p></p>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="index.html" >首页</a></li>
+            <li><a href="news.html">动态</a></li>
+            <li><a href="papers.html" class="current">文章</a></li>
+            <li><a href="books.html" >书单</a></li>
+        </ul>
+    </nav>
+
+
+<main>
+
+        <div class="content">
+        <h1>文章目录 2025</h1>
+        <div class="timeline">
+            <!--目录内容开始-->
+
+            <div class="timeline-item">
+                <div class="timeline-date">2025-8-4</div>
+                <div class="timeline-content">
+                    <h3>交换代数 (Commutative Algebra through Exercises) 随笔 </h3>
+                    <p>叶博宇</p>
+                    <div class="tagline">
+                        <div class="tag">交换代数</div>
+                    </div>
+                    <div class="download-link"><a href="https://www.alipan.com/s/fd7f19Bb3Ss" target="_blank">📄PDF文件</a></div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-date">2025-6-26</div>
+                    <div class="timeline-content">
+                        <h3>复分析复习指南</h3>
+                        <p>叶博宇</p>
+                        <div class="tagline">
+                            <div class="tag">复分析</div>
+                        </div>
+                        <div class="download-link"><a href="https://www.alipan.com/s/SwUnENP6P6t">📄PDF文件</a></div>
+                    </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-date">2025-6-25</div>
+                    <div class="timeline-content">
+                        <h3>常见偏微分方程及其解法</h3>
+                        <p>叶博宇</p>
+                        <div class="tagline">
+                            <div class="tag">偏微分方程</div>
+                        </div>
+                        <div class="download-link"><a href="https://www.alipan.com/s/kGSndxgzLQs">📄PDF文件</a></div>
+                    </div>
+            </div>
+
+        <!--目录内容结束-->
+            
+    </div>
+    </div>
+
+
+        <div class="content">
+        <h1>文章目录 2024</h1>
+        <div class="timeline">
+            <!--目录内容开始-->
+
+        <div class="timeline-item">
+                <div class="timeline-date">2024-6-2</div>
+                <div class="timeline-content"><h3>代数学(残次品)</h3><p>叶博宇</p>
+                    <div class="tagline">
+                    <div class="tag">线性代数</div><div class="tag">抽象代数</div>
+                </div>
+                <div class="download-link"><a href="https://www.alipan.com/s/C3Q4KfUvuQR">📄PDF文件</a></div>
+            </div>
+        </div>
+
+            <div class="timeline-item">
+                <div class="timeline-date">2024-4-13</div>
+                <div class="timeline-content"><h3>数学分析(残次品)</h3><p>叶博宇</p>
+                    <div class="tagline">
+                        <div class="tag">数学分析</div>
+                    </div>
+                    <div class="download-link"><a href="https://www.alipan.com/s/DTKoGdVaSGA">📄PDF文件</a></div>
+            </div>
+        </div>
+
+        
+        <!--目录内容结束-->
+    </div>
+
+    </div>
+
+</main>
+    <footer>
+        <p>Boyu Ye © 2026</p>
+    </footer>
+</body>
