@@ -207,7 +207,7 @@ main {
 }
 .section-title.yellow-theme { background: var(--yellow); color: var(--black); border: 6px solid var(--black); box-shadow: 12px 12px 0 var(--black); }
 .section-title.blue-theme { background: var(--blue); color: var(--white); border: 6px solid var(--black); box-shadow: 12px 12px 0 var(--black); }
-
+.section-title.red-theme { background: var(--red); color: var(--white); border: 6px solid var(--black); box-shadow: 12px 12px 0 var(--black); }
 
 /* Bauhaus Content Cards */
 .bauhaus-card {
