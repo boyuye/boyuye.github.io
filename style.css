@@ -175,8 +175,16 @@ main {
     overflow-x: hidden;
     padding: clamp(2rem, 4vw, 5rem);
     position: relative;
+    /* Drafting paper dot grid */
     background-image: radial-gradient(circle, var(--gray) 2px, transparent 2px);
     background-size: 30px 30px;
+    
+    /* 新增：响应式自适应网格布局 */
+    display: grid;
+    /* 当空间大于650px时自动分列，充分利用右侧空白 */
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 650px), 1fr));
+    gap: 3vw;
+    align-content: start;
 }
 
 /* Big Page Titles */
@@ -186,9 +194,10 @@ main {
     line-height: 0.8;
     color: var(--black);
     text-transform: uppercase;
-    margin-bottom: 4vw;
+    margin-bottom: 1vw; /* 减小间距，由网格 gap 接管 */
     letter-spacing: -4px;
     word-break: break-word;
+    grid-column: 1 / -1; /* 新增：横跨所有列 */
 }
 
 /* Section Subtitles */
@@ -198,9 +207,11 @@ main {
     display: inline-block;
     padding: 15px 30px;
     font-size: clamp(2rem, 3vw, 3rem);
-    margin: 4vw 0 2vw 0;
+    margin: 2vw 0 0 0; /* 减小间距，由网格 gap 接管 */
     text-transform: uppercase;
     font-weight: 900;
+    grid-column: 1 / -1; /* 新增：横跨所有列 */
+    justify-self: start; /* 保持自身大小并左对齐 */
 }
 .section-title:first-child {
     margin-top: 0;
@@ -215,10 +226,10 @@ main {
     border: 6px solid var(--black);
     background: var(--white);
     box-shadow: 16px 16px 0 var(--black);
-    margin-bottom: 3vw;
+    /* margin-bottom: 3vw;  <-- 删掉这行，间距由网格统一管理 */
     transition: transform 0.2s, box-shadow 0.2s;
     width: 100%;
-    max-width: 1000px;
+    max-width: none; /* <-- 将原来的 1000px 改为 none，让卡片自动填满所在列 */
 }
 
 .bauhaus-card:hover {
